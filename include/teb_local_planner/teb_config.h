@@ -221,6 +221,7 @@ public:
     double oscillation_filter_duration; //!< Filter length/duration [sec] for the detection of oscillations
     bool divergence_detection_enable; //!< True to enable divergence detection.
     int divergence_detection_max_chi_squared; //!< Maximum acceptable Mahalanobis distance above which it is assumed that the optimization diverged.
+    bool global_planner_reset_when_trajectory_infeasible; //!< True to enable replanning when no feasible trajectory could be found.
   } recovery; //!< Parameters related to recovery and backup strategies
 
 

@@ -175,6 +175,7 @@ void TebConfig::loadRosParamFromNodeHandle(const ros::NodeHandle& nh)
   nh.param("oscillation_filter_duration", recovery.oscillation_filter_duration, recovery.oscillation_filter_duration);
   nh.param("divergence_detection", recovery.divergence_detection_enable, recovery.divergence_detection_enable);
   nh.param("divergence_detection_max_chi_squared", recovery.divergence_detection_max_chi_squared, recovery.divergence_detection_max_chi_squared);
+  nh.param("global_planner_reset_when_trajectory_infeasible", recovery.global_planner_reset_when_trajectory_infeasible, recovery.global_planner_reset_when_trajectory_infeasible);
 
   checkParameters();
   checkDeprecated(nh);
@@ -289,6 +290,7 @@ void TebConfig::reconfigure(TebLocalPlannerReconfigureConfig& cfg)
   recovery.oscillation_recovery = cfg.oscillation_recovery;
   recovery.divergence_detection_enable = cfg.divergence_detection_enable;
   recovery.divergence_detection_max_chi_squared = cfg.divergence_detection_max_chi_squared;
+  recovery.global_planner_reset_when_trajectory_infeasible = cfg.global_planner_reset_when_trajectory_infeasible;
 
   
   checkParameters();
