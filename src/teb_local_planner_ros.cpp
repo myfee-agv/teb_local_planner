@@ -397,26 +397,34 @@ uint32_t TebLocalPlannerROS::computeVelocityCommands(const geometry_msgs::PoseSt
 
     // now we reset everything to start again with the initialization of new trajectories.
     planner_->clearPlanner();
-    ROS_WARN("TebLocalPlannerROS: trajectory is not feasible. Resetting planner...");
+    ROS_WARN("TebLocalPlannerROS: trajectory is not feasible. Waiting for clear path.");
     
     ++no_infeasible_plans_; // increase number of infeasible solutions in a row
     time_last_infeasible_plan_ = ros::Time::now();
     last_cmd_ = cmd_vel.twist;
     message = "teb_local_planner trajectory is not feasible";
-    return mbf_msgs::ExePathResult::NO_VALID_CMD;
+    if (cfg_.recovery.global_planner_reset_when_trajectory_infeasible)
+    {
+      return mbf_msgs::ExePathResult::NO_VALID_CMD;
+    }
   }
 
   // Get the velocity command for this sampling interval
   if (!planner_->getVelocityCommand(cmd_vel.twist.linear.x, cmd_vel.twist.linear.y, cmd_vel.twist.angular.z, cfg_.trajectory.control_look_ahead_poses))
 
   {
+    cmd_vel.twist.linear.x = cmd_vel.twist.linear.y = cmd_vel.twist.angular.z = 0;
     planner_->clearPlanner();
-    ROS_WARN("TebLocalPlannerROS: velocity command invalid. Resetting planner...");
+    ROS_WARN("TebLocalPlannerROS: velocity command invalid.");
     ++no_infeasible_plans_; // increase number of infeasible solutions in a row
     time_last_infeasible_plan_ = ros::Time::now();
     last_cmd_ = cmd_vel.twist;
     message = "teb_local_planner velocity command invalid";
-    return mbf_msgs::ExePathResult::NO_VALID_CMD;
+    if (cfg_.recovery.global_planner_reset_when_trajectory_infeasible)
+    {
+      ROS_WARN("TebLocalPlannerROS: Resetting planner...");
+      return mbf_msgs::ExePathResult::NO_VALID_CMD;
+    }
   }
   
   // Saturate velocity, if the optimization results violates the constraints (could be possible due to soft constraints).
