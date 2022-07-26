@@ -90,6 +90,8 @@ void TebConfig::loadRosParamFromNodeHandle(const ros::NodeHandle& nh)
   // GoalTolerance
   nh.param("xy_goal_tolerance", goal_tolerance.xy_goal_tolerance, goal_tolerance.xy_goal_tolerance);
   nh.param("yaw_goal_tolerance", goal_tolerance.yaw_goal_tolerance, goal_tolerance.yaw_goal_tolerance);
+  nh.param("final_xy_goal_tolerance", goal_tolerance.final_xy_goal_tolerance, goal_tolerance.final_xy_goal_tolerance);
+  nh.param("final_yaw_goal_tolerance", goal_tolerance.final_yaw_goal_tolerance, goal_tolerance.final_yaw_goal_tolerance);
   nh.param("free_goal_vel", goal_tolerance.free_goal_vel, goal_tolerance.free_goal_vel);
   nh.param("trans_stopped_vel", goal_tolerance.trans_stopped_vel, goal_tolerance.trans_stopped_vel);
   nh.param("theta_stopped_vel", goal_tolerance.theta_stopped_vel, goal_tolerance.theta_stopped_vel);
@@ -111,7 +113,7 @@ void TebConfig::loadRosParamFromNodeHandle(const ros::NodeHandle& nh)
   nh.param("obstacle_proximity_ratio_max_vel",  obstacles.obstacle_proximity_ratio_max_vel, obstacles.obstacle_proximity_ratio_max_vel);
   nh.param("obstacle_proximity_lower_bound", obstacles.obstacle_proximity_lower_bound, obstacles.obstacle_proximity_lower_bound);
   nh.param("obstacle_proximity_upper_bound", obstacles.obstacle_proximity_upper_bound, obstacles.obstacle_proximity_upper_bound);
-  
+
   // Optimization
   nh.param("no_inner_iterations", optim.no_inner_iterations, optim.no_inner_iterations);
   nh.param("no_outer_iterations", optim.no_outer_iterations, optim.no_outer_iterations);
@@ -131,42 +133,42 @@ void TebConfig::loadRosParamFromNodeHandle(const ros::NodeHandle& nh)
   nh.param("weight_shortest_path", optim.weight_shortest_path, optim.weight_shortest_path);
   nh.param("weight_obstacle", optim.weight_obstacle, optim.weight_obstacle);
   nh.param("weight_inflation", optim.weight_inflation, optim.weight_inflation);
-  nh.param("weight_dynamic_obstacle", optim.weight_dynamic_obstacle, optim.weight_dynamic_obstacle);    
+  nh.param("weight_dynamic_obstacle", optim.weight_dynamic_obstacle, optim.weight_dynamic_obstacle);
   nh.param("weight_dynamic_obstacle_inflation", optim.weight_dynamic_obstacle_inflation, optim.weight_dynamic_obstacle_inflation);
   nh.param("weight_velocity_obstacle_ratio", optim.weight_velocity_obstacle_ratio, optim.weight_velocity_obstacle_ratio);
   nh.param("weight_viapoint", optim.weight_viapoint, optim.weight_viapoint);
   nh.param("weight_prefer_rotdir", optim.weight_prefer_rotdir, optim.weight_prefer_rotdir);
   nh.param("weight_adapt_factor", optim.weight_adapt_factor, optim.weight_adapt_factor);
   nh.param("obstacle_cost_exponent", optim.obstacle_cost_exponent, optim.obstacle_cost_exponent);
-  
+
   // Homotopy Class Planner
-  nh.param("enable_homotopy_class_planning", hcp.enable_homotopy_class_planning, hcp.enable_homotopy_class_planning); 
-  nh.param("enable_multithreading", hcp.enable_multithreading, hcp.enable_multithreading); 
-  nh.param("simple_exploration", hcp.simple_exploration, hcp.simple_exploration); 
+  nh.param("enable_homotopy_class_planning", hcp.enable_homotopy_class_planning, hcp.enable_homotopy_class_planning);
+  nh.param("enable_multithreading", hcp.enable_multithreading, hcp.enable_multithreading);
+  nh.param("simple_exploration", hcp.simple_exploration, hcp.simple_exploration);
   nh.param("max_number_classes", hcp.max_number_classes, hcp.max_number_classes);
   nh.param("max_number_plans_in_current_class", hcp.max_number_plans_in_current_class, hcp.max_number_plans_in_current_class);
   nh.param("selection_obst_cost_scale", hcp.selection_obst_cost_scale, hcp.selection_obst_cost_scale);
   nh.param("selection_prefer_initial_plan", hcp.selection_prefer_initial_plan, hcp.selection_prefer_initial_plan);
   nh.param("selection_viapoint_cost_scale", hcp.selection_viapoint_cost_scale, hcp.selection_viapoint_cost_scale);
-  nh.param("selection_cost_hysteresis", hcp.selection_cost_hysteresis, hcp.selection_cost_hysteresis); 
-  nh.param("selection_alternative_time_cost", hcp.selection_alternative_time_cost, hcp.selection_alternative_time_cost); 
-  nh.param("selection_dropping_probability", hcp.selection_dropping_probability, hcp.selection_dropping_probability); 
+  nh.param("selection_cost_hysteresis", hcp.selection_cost_hysteresis, hcp.selection_cost_hysteresis);
+  nh.param("selection_alternative_time_cost", hcp.selection_alternative_time_cost, hcp.selection_alternative_time_cost);
+  nh.param("selection_dropping_probability", hcp.selection_dropping_probability, hcp.selection_dropping_probability);
   nh.param("switching_blocking_period", hcp.switching_blocking_period, hcp.switching_blocking_period);
-  nh.param("roadmap_graph_samples", hcp.roadmap_graph_no_samples, hcp.roadmap_graph_no_samples); 
-  nh.param("roadmap_graph_area_width", hcp.roadmap_graph_area_width, hcp.roadmap_graph_area_width); 
+  nh.param("roadmap_graph_samples", hcp.roadmap_graph_no_samples, hcp.roadmap_graph_no_samples);
+  nh.param("roadmap_graph_area_width", hcp.roadmap_graph_area_width, hcp.roadmap_graph_area_width);
   nh.param("roadmap_graph_area_length_scale", hcp.roadmap_graph_area_length_scale, hcp.roadmap_graph_area_length_scale);
-  nh.param("h_signature_prescaler", hcp.h_signature_prescaler, hcp.h_signature_prescaler); 
-  nh.param("h_signature_threshold", hcp.h_signature_threshold, hcp.h_signature_threshold); 
-  nh.param("obstacle_keypoint_offset", hcp.obstacle_keypoint_offset, hcp.obstacle_keypoint_offset); 
-  nh.param("obstacle_heading_threshold", hcp.obstacle_heading_threshold, hcp.obstacle_heading_threshold); 
+  nh.param("h_signature_prescaler", hcp.h_signature_prescaler, hcp.h_signature_prescaler);
+  nh.param("h_signature_threshold", hcp.h_signature_threshold, hcp.h_signature_threshold);
+  nh.param("obstacle_keypoint_offset", hcp.obstacle_keypoint_offset, hcp.obstacle_keypoint_offset);
+  nh.param("obstacle_heading_threshold", hcp.obstacle_heading_threshold, hcp.obstacle_heading_threshold);
   nh.param("viapoints_all_candidates", hcp.viapoints_all_candidates, hcp.viapoints_all_candidates);
-  nh.param("visualize_hc_graph", hcp.visualize_hc_graph, hcp.visualize_hc_graph); 
+  nh.param("visualize_hc_graph", hcp.visualize_hc_graph, hcp.visualize_hc_graph);
   nh.param("visualize_with_time_as_z_axis_scale", hcp.visualize_with_time_as_z_axis_scale, hcp.visualize_with_time_as_z_axis_scale);
   nh.param("delete_detours_backwards", hcp.delete_detours_backwards, hcp.delete_detours_backwards);
   nh.param("detours_orientation_tolerance", hcp.detours_orientation_tolerance, hcp.detours_orientation_tolerance);
   nh.param("length_start_orientation_vector", hcp.length_start_orientation_vector, hcp.length_start_orientation_vector);
   nh.param("max_ratio_detours_duration_best_duration", hcp.max_ratio_detours_duration_best_duration, hcp.max_ratio_detours_duration_best_duration);
-  
+
   // Recovery
   nh.param("shrink_horizon_backup", recovery.shrink_horizon_backup, recovery.shrink_horizon_backup);
   nh.param("shrink_horizon_min_duration", recovery.shrink_horizon_min_duration, recovery.shrink_horizon_min_duration);
@@ -184,9 +186,9 @@ void TebConfig::loadRosParamFromNodeHandle(const ros::NodeHandle& nh)
 }
 
 void TebConfig::reconfigure(TebLocalPlannerReconfigureConfig& cfg)
-{ 
+{
   boost::mutex::scoped_lock l(config_mutex_);
-  
+
   // Trajectory
   trajectory.teb_autosize = cfg.teb_autosize;
   trajectory.dt_ref = cfg.dt_ref;
@@ -205,7 +207,7 @@ void TebConfig::reconfigure(TebLocalPlannerReconfigureConfig& cfg)
   trajectory.control_look_ahead_poses = cfg.control_look_ahead_poses;
   trajectory.prevent_look_ahead_poses_near_goal = cfg.prevent_look_ahead_poses_near_goal;
 
-  // Robot     
+  // Robot
   robot.max_vel_x = cfg.max_vel_x;
   robot.max_vel_x_backwards = cfg.max_vel_x_backwards;
   robot.max_vel_y = cfg.max_vel_y;
@@ -227,6 +229,8 @@ void TebConfig::reconfigure(TebLocalPlannerReconfigureConfig& cfg)
   // GoalTolerance
   goal_tolerance.xy_goal_tolerance = cfg.xy_goal_tolerance;
   goal_tolerance.yaw_goal_tolerance = cfg.yaw_goal_tolerance;
+  goal_tolerance.final_xy_goal_tolerance = cfg.final_xy_goal_tolerance;
+  goal_tolerance.final_yaw_goal_tolerance = cfg.final_yaw_goal_tolerance;
   goal_tolerance.free_goal_vel = cfg.free_goal_vel;
   goal_tolerance.trans_stopped_vel = cfg.trans_stopped_vel;
   goal_tolerance.theta_stopped_vel = cfg.theta_stopped_vel;
