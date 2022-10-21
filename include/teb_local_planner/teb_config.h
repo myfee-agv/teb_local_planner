@@ -118,7 +118,9 @@ public:
     double trans_stopped_vel; //!< Below what maximum velocity we consider the robot to be stopped in translation
     double theta_stopped_vel; //!< Below what maximum rotation velocity we consider the robot to be stopped in rotation
     bool complete_global_plan; // true prevents the robot from ending the path early when it cross the end goal
-    double final_xy_goal_tolerance; //!< Allowed final orientation error for termination
+//    double final_xy_goal_tolerance; //!< Allowed final orientation error for termination
+    double final_x_goal_tolerance;
+    double final_y_goal_tolerance;
     double final_yaw_goal_tolerance; //!< Allowed final euclidean distance to the goal position for termination
   } goal_tolerance; //!< Goal tolerance related parameters
 
@@ -295,7 +297,9 @@ public:
     goal_tolerance.trans_stopped_vel = 0.1;
     goal_tolerance.theta_stopped_vel = 0.1;
     goal_tolerance.complete_global_plan = true;
-    goal_tolerance.final_xy_goal_tolerance = 0.5;
+//    goal_tolerance.final_xy_goal_tolerance = 0.5;
+goal_tolerance.final_x_goal_tolerance = 0.5;
+goal_tolerance.final_y_goal_tolerance = 0.5;
     goal_tolerance.final_yaw_goal_tolerance = 0.7;
 
     // Obstacles

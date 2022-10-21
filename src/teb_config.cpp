@@ -90,7 +90,11 @@ void TebConfig::loadRosParamFromNodeHandle(const ros::NodeHandle& nh)
   // GoalTolerance
   nh.param("xy_goal_tolerance", goal_tolerance.xy_goal_tolerance, goal_tolerance.xy_goal_tolerance);
   nh.param("yaw_goal_tolerance", goal_tolerance.yaw_goal_tolerance, goal_tolerance.yaw_goal_tolerance);
-  nh.param("final_xy_goal_tolerance", goal_tolerance.final_xy_goal_tolerance, goal_tolerance.final_xy_goal_tolerance);
+//  nh.param("final_xy_goal_tolerance", goal_tolerance.final_xy_goal_tolerance, goal_tolerance.final_xy_goal_tolerance);
+  nh.param("final_x_goal_tolerance", goal_tolerance.final_x_goal_tolerance, goal_tolerance.final_x_goal_tolerance);
+  nh.param("final_y_goal_tolerance", goal_tolerance.final_y_goal_tolerance, goal_tolerance.final_y_goal_tolerance);
+
+
   nh.param("final_yaw_goal_tolerance", goal_tolerance.final_yaw_goal_tolerance, goal_tolerance.final_yaw_goal_tolerance);
   nh.param("free_goal_vel", goal_tolerance.free_goal_vel, goal_tolerance.free_goal_vel);
   nh.param("trans_stopped_vel", goal_tolerance.trans_stopped_vel, goal_tolerance.trans_stopped_vel);
@@ -229,7 +233,11 @@ void TebConfig::reconfigure(TebLocalPlannerReconfigureConfig& cfg)
   // GoalTolerance
   goal_tolerance.xy_goal_tolerance = cfg.xy_goal_tolerance;
   goal_tolerance.yaw_goal_tolerance = cfg.yaw_goal_tolerance;
-  goal_tolerance.final_xy_goal_tolerance = cfg.final_xy_goal_tolerance;
+//  goal_tolerance.final_xy_goal_tolerance = cfg.final_xy_goal_tolerance;
+  goal_tolerance.final_x_goal_tolerance = cfg.final_x_goal_tolerance;
+    goal_tolerance.final_y_goal_tolerance = cfg.final_y_goal_tolerance;
+
+
   goal_tolerance.final_yaw_goal_tolerance = cfg.final_yaw_goal_tolerance;
   goal_tolerance.free_goal_vel = cfg.free_goal_vel;
   goal_tolerance.trans_stopped_vel = cfg.trans_stopped_vel;
