@@ -291,7 +291,7 @@ uint32_t TebLocalPlannerROS::computeVelocityCommands(const geometry_msgs::PoseSt
   double dy = global_goal.pose.position.y - robot_pose_.y();
   double delta_orient = g2o::normalize_theta( tf2::getYaw(global_goal.pose.orientation) - robot_pose_.theta() );
   if(fabs(dx) < fabs(cfg_.goal_tolerance.final_x_goal_tolerance)
-    && fabs(dx) < fabs(cfg_.goal_tolerance.final_y_goal_tolerance)
+    && fabs(dy) < fabs(cfg_.goal_tolerance.final_y_goal_tolerance)
     && fabs(delta_orient) < cfg_.goal_tolerance.final_yaw_goal_tolerance
     && (!cfg_.goal_tolerance.complete_global_plan || via_points_.size() == 0)
     && (base_local_planner::stopped(base_odom, cfg_.goal_tolerance.theta_stopped_vel, cfg_.goal_tolerance.trans_stopped_vel)
